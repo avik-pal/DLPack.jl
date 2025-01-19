@@ -20,6 +20,7 @@ jobs:
       matrix:
         version:
           - '1.6'
+          - '1.10'
           - '1'
           - 'nightly'
         os:
@@ -28,6 +29,9 @@ jobs:
         arch: [x64]
     steps:
       - uses: actions/checkout@v3
+      - name: Install system prerequisites
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y patchelf
       - name: Setup julia
         uses: julia-actions/setup-julia@v1
         with:
